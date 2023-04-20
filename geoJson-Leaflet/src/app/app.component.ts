@@ -8,7 +8,7 @@ import * as L from 'leaflet'; // Importiamo leaflet
 })
 export class AppComponent implements AfterViewInit {
   private map: any;
-  geoJsonObject!: GeoFeatureCollection
+  geoJsonObject!: any
 
   private initMap(): void {
     // Creazione della mappa 
@@ -31,15 +31,21 @@ export class AppComponent implements AfterViewInit {
     );  
 
     tiles.addTo(this.map);  // Aggiunge il tile alla mappa 
+
+ 
+    L.geoJSON(this.geoJsonObject).addTo(this.map)
+
   }
 
   constructor() {
         //Questi dati dovremmo scaricarli dal server, per ora li abbiamo copiati nel file     gojson.model.ts
-        this.geoJsonObject = GEOJSON;  
-        console.log(this.geoJsonObject); //stampo l'oggetto geoJsonObject sulla console
+
   }
 
   ngAfterViewInit(): void {
     this.initMap();
+
   }
+
+
 }
