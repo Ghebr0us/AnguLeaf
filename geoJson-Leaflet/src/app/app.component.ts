@@ -32,8 +32,9 @@ export class AppComponent implements AfterViewInit {
 
     tiles.addTo(this.map);  // Aggiunge il tile alla mappa 
 
- 
+    this.geoJsonObject = GEOJSON
     L.geoJSON(this.geoJsonObject).addTo(this.map)
+    
 
   }
 
@@ -44,8 +45,8 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initMap();
-
   }
 
 
 }
+
