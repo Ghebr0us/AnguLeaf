@@ -34,8 +34,26 @@ export class AppComponent implements AfterViewInit {
 
     this.geoJsonObject = GEOJSON
     L.geoJSON(this.geoJsonObject).addTo(this.map)
+      
+      // creare un nuovo marker
+
+
+      var marker = L.marker([
+          this.geoJsonObject.features[1].geometry.coordinates[0][0][1],
+        this.geoJsonObject.features[1].geometry.coordinates[0][0][0]
+      ]).bindPopup('UGO') // Aggiunge un Popup che verrà visualizzato al click del marker sulla mappa 
+      .setIcon(L.icon({ iconUrl: '/assets/img/marker.png', iconSize: [24, 24] }));
     
 
+      var marker2 = L.marker([
+        this.geoJsonObject.features[0].geometry.coordinates[0][0][1],
+      this.geoJsonObject.features[0].geometry.coordinates[0][0][0]
+    ]).bindPopup('UGO') // Aggiunge un Popup che verrà visualizzato al click del marker sulla mappa 
+    .setIcon(L.icon({ iconUrl: '/assets/img/marker.png', iconSize: [24, 24] }));
+    
+      // aggiungerlo alla mappa
+      marker.addTo(this.map);
+      marker2.addTo(this.map)
   }
 
   constructor() {
@@ -48,5 +66,9 @@ export class AppComponent implements AfterViewInit {
   }
 
 
+}
+
+function markerGenerator() {
+  throw new Error('Function not implemented.');
 }
 
