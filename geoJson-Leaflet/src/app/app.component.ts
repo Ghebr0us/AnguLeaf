@@ -33,27 +33,25 @@ export class AppComponent implements AfterViewInit {
     tiles.addTo(this.map);  // Aggiunge il tile alla mappa 
 
     this.geoJsonObject = GEOJSON
-    L.geoJSON(this.geoJsonObject).addTo(this.map)
-      
+    L.geoJSON(this.geoJsonObject).setStyle(this.styleFunc).addTo(this.map)
       // creare un nuovo marker
-
-
-      var marker = L.marker([
-          this.geoJsonObject.features[1].geometry.coordinates[0][0][1],
-        this.geoJsonObject.features[1].geometry.coordinates[0][0][0]
-      ]).bindPopup('UGO') // Aggiunge un Popup che verrà visualizzato al click del marker sulla mappa 
-      .setIcon(L.icon({ iconUrl: '/assets/img/marker.png', iconSize: [24, 24] }));
-    
-
-      var marker2 = L.marker([
-        this.geoJsonObject.features[0].geometry.coordinates[0][0][1],
-      this.geoJsonObject.features[0].geometry.coordinates[0][0][0]
-    ]).bindPopup('UGO') // Aggiunge un Popup che verrà visualizzato al click del marker sulla mappa 
-    .setIcon(L.icon({ iconUrl: '/assets/img/marker.png', iconSize: [24, 24] }));
-    
-      // aggiungerlo alla mappa
-      marker.addTo(this.map);
-      marker2.addTo(this.map)
+    for (var i = 0; i <= this.geoJsonObject.features.length; i++) {
+      L.marker([this.geoJsonObject.features[i].geometry.coordinates[0][0][1], this.geoJsonObject.features[i].geometry.coordinates[0][0][0]]).bindPopup(String(i)).addTo(this.map);
+    }
+  }
+  
+  // cambiare colori delle geometrie
+  styleFunc = (feature:any) =>{
+    console.log(feature.properties.id)
+    let newColor = "#0000FF"; //BLUE
+    if(feature.properties.id == 0) newColor = "#00FF00"; //GREEN
+    else {newColor = "#FF0000";} //RED
+    return ({
+      color: newColor
+      // clickable: false,
+      // fillColor: newColor,
+      // strokeWeight: 1
+    });
   }
 
   constructor() {
@@ -67,8 +65,3 @@ export class AppComponent implements AfterViewInit {
 
 
 }
-
-function markerGenerator() {
-  throw new Error('Function not implemented.');
-}
-
